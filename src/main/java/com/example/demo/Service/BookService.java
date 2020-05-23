@@ -34,12 +34,7 @@ public class BookService {
         return bookRepo.updateBook(book, bookId);
     }
 
-    /*
     public List<Book> findAnyBook(String keyword){
-        return bookRepo.findAnyBook(keyword);
-    }*/
-
-    public Book findAnyBook(String keyword){
         return bookRepo.findAnyBook(keyword);
     }
 

@@ -16,54 +16,48 @@ public class Repo {
     @Autowired
     JdbcTemplate template;
 
-    public List<Book> fetchAll(){
+    public List<Book> fetchAll() {
         String sql = "SELECT * FROM BookStoreWebsite.Books";
         RowMapper<Book> rowMapper = new BeanPropertyRowMapper<>(Book.class);
         return template.query(sql, rowMapper);
     }
 
-    public Book addBook (Book book){
+    public Book addBook(Book book) {
 
         String sql = "INSERT INTO BookStoreWebsite.Books (BookId, AuthorFirstName, AuthorLastName, Title, ISBN) VALUES (?, ?, ?, ?, ?)";
         template.update(sql, book.getBookId(), book.getAuthorFirstName(), book.getAuthorLastName(), book.getTitle(), book.getISBN());
         return null;
     }
 
-    public Book findBook (int bookId){
+    public Book findBook(int bookId) {
 
         String sql = "SELECT * FROM BookStoreWebsite.Books WHERE BookId = ?";
         RowMapper<Book> rowMapper = new BeanPropertyRowMapper<>(Book.class);
-        Book book = template.queryForObject(sql, rowMapper, bookId );
+        Book book = template.queryForObject(sql, rowMapper, bookId);
         return book;
     }
 
-    public Boolean deleteBook (int bookId){
+    public Boolean deleteBook(int bookId) {
 
         String sql = "DELETE FROM BookStoreWebsite.Books WHERE BookId = ?";
-        return template.update(sql, bookId)>0;
+        return template.update(sql, bookId) > 0;
     }
 
-    public Book updateBook (Book book, int bookId){
+    public Book updateBook(Book book, int bookId) {
 
         String sql = "UPDATE BookStoreWebsite.Books SET AuthorFirstName = ?, AuthorLastName = ?, Title = ?, ISBN = ? WHERE BookId = ?";
         template.update(sql, book.getAuthorFirstName(), book.getAuthorLastName(), book.getTitle(), book.getISBN(), bookId);
         return null;
     }
 
-    public Book findAnyBook (String keyword){
+    public List<Book> findAnyBook(String keyword) {
         //String sql = "SELECT * FROM BookStoreWebsite.Books WHERE BookId LIKE '%?%' OR AuthorFirstName LIKE '%?%' OR AuthorLastName LIKE '%?%' OR Title LIKE '%?%'OR ISBN LIKE '%?%' ";
-        String sql = "SELECT * FROM BookStoreWebsite.Books WHERE BookId = ? OR AuthorFirstName = ? OR AuthorLastName = ? OR Title = ? OR ISBN = ? ";
+        String sql = "SELECT * FROM BookStoreWebsite.Books WHERE AuthorFirstName LIKE '" + keyword +"%' OR AuthorLastName LIKE '" + keyword + "%' OR Title LIKE '" +
+                keyword + "%'";
 
-        //String sql = "SELECT * FROM whatever WHERE like %" +keystrock+  " % OR"
+        RowMapper<Book> rowMapper = new BeanPropertyRowMapper<>(Book.class);
 
-        try {
-            RowMapper<Book> rowMapper = new BeanPropertyRowMapper<>(Book.class);
-            Book book = template.queryForObject(sql, rowMapper, keyword, keyword, keyword, keyword, keyword);
-
-            return book;
-        }catch (EmptyResultDataAccessException e){
-            return null;
+        return template.query(sql, rowMapper);
         }
-    }
 
 }

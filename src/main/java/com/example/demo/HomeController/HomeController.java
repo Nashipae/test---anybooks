@@ -69,21 +69,11 @@ public class HomeController {
     }
 
     @GetMapping("/anyBooks/getAnyBooks")
-    public String getAnyBooks(Model model, @ModelAttribute String keyword){
-        System.out.println("We are here" + keyword);
-        model.addAttribute("books", BookService.findAnyBook(keyword));
-        System.out.println(keyword);
+    public String getAnyBooks(@ModelAttribute Book book, Model model) {
+        List<Book> boo = BookService.findAnyBook(book.getAuthorFirstName());
+        model.addAttribute("books", boo);
         return "home/anyBooks";
     }
-    /*
-
-    @GetMapping("/anyBooks/getAnyBooks")
-    public String getAnyBooks(@ModelAttribute Book book, Model model) {
-        System.out.println("postmapping" + book.getAuthorFirstName());
-        List<Book> bookList = BookService.findAnyBook(book.getAuthorFirstName());
-        model.addAttribute("books", bookList);
-        return "home/anyBooks";
-    }*/
 
 
 }
