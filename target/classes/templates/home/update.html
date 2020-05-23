@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Updating Book</title>
+</head>
+<body>
+
+<h1>Updating Existing Book</h1>
+
+<form th:action="@{'/updateBook/'+${book.bookId}}" method="post">
+<!--<form action="/updateBook" method="post">-->
+    <label>Enter Author First Name</label>
+    <input type="text" name="authorFirstName" th:value="${book.authorFirstName}">
+    <label>Enter Author Last Name</label>
+    <input type="text" name="authorLastName" th:value="${book.authorLastName}">
+    <label>Enter Book Title</label>
+    <input type="text" name="title" th:value="${book.title}">
+    <label>Enter ISBN</label>
+    <input type="text" name="ISBN" th:value="${book.ISBN}">
+    <input type="submit" value="Save changes">
+</form>
+
+</body>
+</html>

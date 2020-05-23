@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Page</title>
+    <link rel="stylesheet" type="text/css" href="../../static/bootstrap.css" th:href="@{/bootstrap.css}" />
+
+</head>
+<body>
+
+    <h1>Create New Book</h1>
+
+    <form action="/create" method="post">
+        <label>Enter Author First Name</label>
+        <input type="text" name="authorFirstName">
+        <br>
+        <label>Enter Author Last Name</label>
+        <input type="text" name="authorLastName">
+        <br>
+        <label>Enter Book Title</label>
+        <input type="text" name="Title">
+        <br>
+        <label>Enter ISBN</label>
+        <input type="number" name="ISBN">
+        <br>
+        <input type="submit" value="Create new book">
+    </form>
+</body>
+</html>

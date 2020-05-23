@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web App Library Homework </title>
+    <link rel="stylesheet" type="text/css" href="../../static/bootstrap.css" th:href="@{/bootstrap.css}" />
+
+</head>
+<header>
+    <div class="header"><span class="big">Book Database</span>: Web App Homework</div>
+</header>
+
+
+<body>
+    <div class="logo">
+        <img src="../../static/bookshop.jpg" img th:src="@{/bookshop.jpg}" width="280">
+    </div>
+    <br>
+
+    <div class="form-group">
+
+        <form action="/anyBooks/getAnyBooks"  method="get">
+            <input id="txtSearch" type="text" name="keyword"><!--maxlength="50"-->
+            <input type="submit" value="submit">
+        </form>
+
+
+     <!--
+    <label for="txtBookSearch">Book ID</label><br>
+        <a href="src/main/resources/templates/home/viewOne.html"  th:href="@{'/viewOne/'+${Book.bookId}}">
+    <input type="search" name="txtBookSearch" id="txtBookSearch" maxlength="10" class="form-control col-11" autofocus>
+       </a>-->
+
+    </div>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID </th>
+            <th>Author First Name</th>
+            <th>Last Name</th>
+            <th>Title</th>
+            <th>ISBN</th>
+        </tr>
+        </thead>
+         <tr th:each="Book: ${books}">
+             <td th:text="${Book.bookId}"/>
+             <td th:text="${Book.authorFirstName}"/>
+             <td th:text="${Book.authorLastName}"/>
+             <td th:text="${Book.title}"/>
+             <td th:text="${Book.ISBN}"/>
+             <td>
+                 <a href="src/main/resources/templates/home/viewOne.html" th:href="@{'/viewOne/'+${Book.bookId}}">
+                     <button class="btn-viewOne" id="btn-viewOne">View Book</button>
+                 </a>
+                 <a th:href="@{'/update/'+${Book.bookId}}">
+                     <button class="btn-update" id="btn-update">Update</button>
+                 </a>
+                 <a th:href="@{'/delete/'+${Book.bookId}}">
+                     <button class="btn-delete" id="btn-delete">Delete</button>
+                 </a>
+             </td>
+         </tr>
+       </tbody>
+    </table>
+
+
+  <div class="form-group">
+        <br>
+        <a href="/create/">
+            <button class="btn-Add" id="btn-add">Add Book</button>
+        </a>
+    </div>
+
+    <footer>
+        2020 Group 7
+    </footer>
+
+</div>
+</body>
+</html>
